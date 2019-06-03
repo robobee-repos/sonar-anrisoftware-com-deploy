@@ -1,0 +1,53 @@
+/*
+ * Mandatory:
+ *
+ * vars.sonar.hosts[]
+ * vars.sonar.issuer
+ * 
+ * Optional:
+ * 
+ * vars.sonar.port
+ *     Defaults to 8080.
+ * vars.nginx.clientMaxBodySize
+ *     Defaults to "".
+ *
+ */
+
+import "robobeerun-templates/cert_config.stg"
+import "robobeerun-templates/ingress_config.stg"
+
+/*
+ * 
+ */
+xx-sonar-ingress-yaml(parent, vars) ::= <<
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sonar-ingress
+  namespace: sonar-anrisoftware-com
+  labels:
+    tier: frontend
+  annotations:
+    <ingressDefaultAnnotations(vars.nginx)>
+spec:
+  <ingressDefaultSpec("sonar-ingress", vars.sonar.hosts)>
+
+---
+
+<ingressService("sonar-ingress", "sonar", "sonar-anrisoftware-com", vars.sonar)>
+
+---
+
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: sonar-ingress
+  namespace: sonar-anrisoftware-com
+spec:
+  <certDefaultSpec("sonar-ingress-tls", vars.sonar.hosts, vars.sonar.issuer)>
+
+---
+
+>>

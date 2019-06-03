@@ -1,0 +1,3 @@
+[submodule "robobeerun-templates"]
+	path = robobeerun-templates
+	url = git@github.com:robobee-repos/robobeerun-templates.git

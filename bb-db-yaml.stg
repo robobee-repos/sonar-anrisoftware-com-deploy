@@ -1,0 +1,35 @@
+/*
+ * Mandatory:
+ *
+ * vars.db.image.name
+ * vars.db.image.version
+ * vars.db.revision
+ * vars.db.host
+ * vars.db.port
+ * vars.db.user
+ * vars.db.password
+ * vars.db.database
+ * vars.db.schema
+ * vars.db.admin.user
+ * vars.db.admin.password
+ *
+ */
+
+/*
+ * 
+ */
+bb-db-yaml(parent, vars) ::= <<
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-<vars.db.revision>
+  namespace: sonar-anrisoftware-com
+type: Opaque
+data:
+  user: <vars.db.user;format="base64">
+  password: <vars.db.password;format="base64">
+  database: <vars.db.database;format="base64">
+  admin_user: <vars.db.admin.user;format="base64">
+  admin_password: <vars.db.admin.password;format="base64">
+
+>>
