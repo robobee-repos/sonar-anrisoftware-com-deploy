@@ -29,6 +29,7 @@ data:
   user: <vars.db.user;format="base64">
   password: <vars.db.password;format="base64">
   database: <vars.db.database;format="base64">
+  postgres-password: <vars.db.password;format="base64">
   admin_user: <vars.db.admin.user;format="base64">
   admin_password: <vars.db.admin.password;format="base64">
 
