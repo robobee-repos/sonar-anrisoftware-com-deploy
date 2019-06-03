@@ -1,0 +1,35 @@
+/*
+ * Mandatory:
+ *
+ * vars.db.image.name
+ * vars.db.image.version
+ * vars.db.revision
+ * vars.db.host
+ * vars.db.port
+ * vars.db.user
+ * vars.db.password
+ * vars.db.database
+ * vars.db.schema
+ * vars.db.admin.user
+ * vars.db.admin.password
+ *
+ */
+
+/*
+ * 
+ */
+bb-db-init-yaml(parent, vars) ::= <<
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-db
+  namespace: sonar-anrisoftware-com
+spec:
+  template:
+    spec:
+      containers:
+      <postgresInitDbGroup(vars.db)>
+      restartPolicy: Never
+  backoffLimit: 4
+
+>>
